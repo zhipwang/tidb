@@ -148,7 +148,7 @@ import:
   subpackages:
   - lex
 - package: github.com/pingcap/pd
-  version: fea29e342c4a7c5888cdf0b569625fbbf6d3b50f
+  version: hhkbp2/debug-context-cancel
 - package: github.com/pingcap/tipb
   version: 37bbffad21f347c02af7d822909832f0eed39c85
   subpackages:

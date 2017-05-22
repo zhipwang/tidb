@@ -449,13 +449,13 @@ func (c *client) GetTS(ctx context.Context) (int64, int64, error) {
 func (c *client) GetRegion(ctx context.Context, key []byte) (*metapb.Region, *metapb.Peer, error) {
 	start := time.Now()
 	defer func() { cmdDuration.WithLabelValues("get_region").Observe(time.Since(start).Seconds()) }()
-	ctx, cancel := context.WithTimeout(ctx, pdTimeout)
+	ctx, _ = context.WithTimeout(ctx, pdTimeout)
 	resp, err := c.leaderClient().GetRegion(ctx, &pdpb.GetRegionRequest{
 		Header:    c.requestHeader(),
 		RegionKey: key,
 	})
 	requestDuration.WithLabelValues("get_region").Observe(time.Since(start).Seconds())
-	cancel()
+	// cancel()
 
 	if err != nil {
 		cmdFailedDuration.WithLabelValues("get_region").Observe(time.Since(start).Seconds())
@@ -468,13 +468,13 @@ func (c *client) GetRegion(ctx context.Context, key []byte) (*metapb.Region, *me
 func (c *client) GetRegionByID(ctx context.Context, regionID uint64) (*metapb.Region, *metapb.Peer, error) {
 	start := time.Now()
 	defer func() { cmdDuration.WithLabelValues("get_region_byid").Observe(time.Since(start).Seconds()) }()
-	ctx, cancel := context.WithTimeout(ctx, pdTimeout)
+	ctx, _ = context.WithTimeout(ctx, pdTimeout)
 	resp, err := c.leaderClient().GetRegionByID(ctx, &pdpb.GetRegionByIDRequest{
 		Header:   c.requestHeader(),
 		RegionId: regionID,
 	})
 	requestDuration.WithLabelValues("get_region_byid").Observe(time.Since(start).Seconds())
-	cancel()
+	// cancel()
 
 	if err != nil {
 		cmdFailedDuration.WithLabelValues("get_region_byid").Observe(time.Since(start).Seconds())
@@ -487,13 +487,13 @@ func (c *client) GetRegionByID(ctx context.Context, regionID uint64) (*metapb.Re
 func (c *client) GetStore(ctx context.Context, storeID uint64) (*metapb.Store, error) {
 	start := time.Now()
 	defer func() { cmdDuration.WithLabelValues("get_store").Observe(time.Since(start).Seconds()) }()
-	ctx, cancel := context.WithTimeout(ctx, pdTimeout)
+	ctx, _ = context.WithTimeout(ctx, pdTimeout)
 	resp, err := c.leaderClient().GetStore(ctx, &pdpb.GetStoreRequest{
 		Header:  c.requestHeader(),
 		StoreId: storeID,
 	})
 	requestDuration.WithLabelValues("get_store").Observe(time.Since(start).Seconds())
-	cancel()
+	// cancel()
 
 	if err != nil {
 		cmdFailedDuration.WithLabelValues("get_store").Observe(time.Since(start).Seconds())
