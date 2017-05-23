@@ -310,8 +310,8 @@ func (e *IndexLookUpExecutor) fetchHandlesAndStartWorkers() {
 	txnCtx := e.ctx.GoCtx()
 	for i := 0; i < lookupConcurrencyLimit; i++ {
 		go func() {
-			childCtx, cancel := goctx.WithCancel(txnCtx)
-			defer cancel()
+			childCtx, _ := goctx.WithCancel(txnCtx)
+			// defer cancel()
 			select {
 			case task := <-workCh:
 				if task == nil {
