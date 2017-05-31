@@ -32,8 +32,11 @@ type Context interface {
 	// Txn returns the current transaction which is created before executing a statement.
 	Txn() kv.Transaction
 
-	// GoCtx returns the standard context.Context which is bound with current transaction.
+	// GoCtx returns the standard context.Context which is bounded with current transaction.
 	GoCtx() goctx.Context
+
+	// Cancel cancels current execution.
+	Cancel()
 
 	// GetClient gets a kv.Client.
 	GetClient() kv.Client

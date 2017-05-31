@@ -73,8 +73,6 @@ type Session interface {
 	SetSessionManager(util.SessionManager)
 	Close()
 	Auth(user string, auth []byte, salt []byte) bool
-	// Cancel the execution of current transaction.
-	Cancel()
 	ShowProcess() util.ProcessInfo
 }
 

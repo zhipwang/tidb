@@ -414,6 +414,7 @@ func (e *XSelectIndexExec) Close() error {
 
 	e.taskCurr = nil
 	if e.taskChan != nil {
+		e.ctx.Cancel()
 		// Consume the task channel in case channel is full.
 		for range e.taskChan {
 		}
